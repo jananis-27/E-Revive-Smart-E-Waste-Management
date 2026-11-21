@@ -2,7 +2,12 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { getErrorMessage } from "../utils/format";
 
-const SLOTS = ["09:00 AM – 11:00 AM", "11:00 AM – 01:00 PM", "02:00 PM – 04:00 PM", "04:00 PM – 06:00 PM"];
+const SLOTS = [
+  { value: "09:00-11:00", label: "09:00 AM – 11:00 AM" },
+  { value: "11:00-13:00", label: "11:00 AM – 01:00 PM" },
+  { value: "14:00-16:00", label: "02:00 PM – 04:00 PM" },
+  { value: "16:00-18:00", label: "04:00 PM – 06:00 PM" },
+];
 const today = () => new Date().toISOString().split("T")[0];
 
 function Field({ label, error, wide, children }) {
@@ -33,6 +38,7 @@ export default function PickupForm({ defaultName = "", onSubmit }) {
     if (!/^\d{6}$/.test(f.pincode)) e.pincode = "Enter a valid 6-digit pincode.";
     if (!f.date) e.date = "Choose a pickup date.";
     else if (f.date < today()) e.date = "Pickup date cannot be in the past.";
+    else if (new Date(`${f.date}T00:00:00`).getDay() === 0) e.date = "Sunday pickups are unavailable.";
     if (!f.time) e.time = "Choose a pickup time.";
     setErrors(e);
     return !Object.keys(e).length;
@@ -65,7 +71,7 @@ export default function PickupForm({ defaultName = "", onSubmit }) {
         <Field error={errors.time} label="Preferred Pickup Time">
           <select value={f.time} onChange={set("time")}>
             <option value="">Select a time slot</option>
-            {SLOTS.map((s) => <option key={s}>{s}</option>)}
+            {SLOTS.map((slot) => <option key={slot.value} value={slot.value}>{slot.label}</option>)}
           </select>
         </Field>
         <Field error={errors.instructions} label="Additional Instructions" wide>

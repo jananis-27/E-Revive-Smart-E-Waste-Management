@@ -1,5 +1,4 @@
-import api, { withFallback } from "./api";
-import * as demo from "./demo";
+import api, { API_ENDPOINTS } from "./api";
 
 const normalize = (d) => ({
   token: d.token || d.access_token,
@@ -7,22 +6,13 @@ const normalize = (d) => ({
 });
 
 // Expected backend: POST /auth/register  { name, email, password } -> { token, user }
-export const registerUser = (data) =>
-  withFallback(
-    async () => normalize((await api.post("/auth/register", data)).data),
-    async () => normalize(await demo.register(data))
-  );
+export const registerUser = async (data) =>
+  normalize((await api.post(API_ENDPOINTS.register, data)).data);
 
 // Expected backend: POST /auth/login  { email, password } -> { token, user }
-export const loginUser = (data) =>
-  withFallback(
-    async () => normalize((await api.post("/auth/login", data)).data),
-    async () => normalize(await demo.login(data))
-  );
+export const loginUser = async (data) =>
+  normalize((await api.post(API_ENDPOINTS.login, data)).data);
 
 // Expected backend: POST /auth/forgot-password  { email } -> { message }
-export const forgotPassword = (email) =>
-  withFallback(
-    async () => (await api.post("/auth/forgot-password", { email })).data,
-    () => demo.forgotPassword()
-  );
+export const forgotPassword = async (email) =>
+  (await api.post(API_ENDPOINTS.forgotPassword, { email })).data;

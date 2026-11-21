@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
-import DemoBanner from "./components/DemoBanner.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
@@ -18,7 +17,6 @@ function Layout() {
   return (
     <>
       <Navbar />
-      <DemoBanner />
       <main className="page-main">
         <Outlet />
       </main>

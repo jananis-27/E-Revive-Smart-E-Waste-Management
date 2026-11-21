@@ -2,7 +2,7 @@ import { Upload, Cpu, Truck } from "lucide-react";
 
 const steps = [
   { icon: Upload, title: "Upload Photo", text: "Upload a clear image of your electronic waste." },
-  { icon: Cpu, title: "ML Analysis", text: "Our Machine Learning model identifies the electronic component and estimates its value and reusability." },
+  { icon: Cpu, title: "Device Assessment", text: "The backend uses your device and condition answers to recommend reuse or recycling and provide indicative estimates." },
   { icon: Truck, title: "Schedule Pickup", text: "Choose a convenient date and time for doorstep collection." },
 ];
 

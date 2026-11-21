@@ -22,9 +22,17 @@ export const formatCo2 = (v) => {
 
 export const cap = (s = "") => (s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : "");
 
-export const getErrorMessage = (e) =>
-  e?.response?.data?.message ||
-  e?.response?.data?.error ||
-  e?.response?.data?.detail ||
-  e?.message ||
-  "Something went wrong. Please try again.";
+export const getErrorMessage = (e) => {
+  const data = e?.response?.data;
+  const fieldErrors = data?.errors
+    ? Object.entries(data.errors).map(([field, message]) => `${field}: ${message}`).join(" ")
+    : "";
+  return (
+    fieldErrors ||
+    data?.message ||
+    data?.error ||
+    data?.detail ||
+    e?.message ||
+    "Something went wrong. Please try again."
+  );
+};

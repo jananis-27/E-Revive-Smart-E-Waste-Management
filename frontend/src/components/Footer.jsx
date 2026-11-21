@@ -10,7 +10,7 @@ export default function Footer() {
           <span>E:Revive</span>
         </Link>
         <p>Give Your E-Waste a Second Life.</p>
-        <small>© {new Date().getFullYear()} E:Revive – A Smart E-Waste Management System Using Machine Learning</small>
+        <small>© {new Date().getFullYear()} E:Revive – A Smart E-Waste Management System</small>
       </div>
     </footer>
   );

@@ -65,8 +65,8 @@ export default function HeroSection() {
           Turn Your <span className="grad-text">E-Waste</span> Into <span className="grad-text">Value</span>
         </h1>
         <p>
-          Upload a photo of your electronic waste, get instant Machine Learning analysis with estimated pricing, and
-          schedule a convenient pickup — all while contributing to a sustainable environment.
+          Upload a photo of your electronic waste, answer a few condition questions, get a reuse or recycling
+          recommendation with an estimated value, and schedule a convenient pickup.
         </p>
         <div className="hero-actions">
           <button className="btn btn-primary btn-lg" onClick={() => navigate("/signup")}>Get Started Free</button>

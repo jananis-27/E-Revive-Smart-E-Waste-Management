@@ -1,18 +1,27 @@
 import axios from "axios";
 
+export const API_ENDPOINTS = {
+  health: "/health",
+  register: "/auth/register",
+  login: "/auth/login",
+  forgotPassword: "/auth/forgot-password",
+  dashboard: "/dashboard",
+  survey: "/survey",
+  analyses: "/analyses",
+  pickups: "/pickups",
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080/api",
   timeout: 60000,
 });
 
-// Attach JWT token to every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("erevive_token");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Log the user out if the token is rejected
 api.interceptors.response.use(
   (res) => res,
   (err) => {
@@ -21,28 +30,15 @@ api.interceptors.response.use(
       localStorage.removeItem("erevive_user");
       window.location.href = "/login";
     }
+    if (!err.response && !err.message) {
+      err.message =
+        "Cannot connect to the E:Revive backend. Start Spring Boot at http://localhost:8080 and try again.";
+    } else if (!err.response && err.code === "ERR_NETWORK") {
+      err.message =
+        "Cannot connect to the E:Revive backend. Start Spring Boot at http://localhost:8080 and try again.";
+    }
     return Promise.reject(err);
   }
 );
-
-const ALLOW_DEMO = import.meta.env.VITE_DEMO_FALLBACK !== "false";
-
-/**
- * Try the real backend first. If the server cannot be reached at all
- * (no HTTP response), fall back to the clearly labelled DEMO MODE.
- * Real server errors (400, 401, 500...) are never hidden by demo mode.
- */
-export async function withFallback(realCall, demoCall) {
-  try {
-    return await realCall();
-  } catch (e) {
-    if (!e.response && ALLOW_DEMO) {
-      sessionStorage.setItem("erevive_demo", "1");
-      window.dispatchEvent(new Event("erevive-demo"));
-      return demoCall();
-    }
-    throw e;
-  }
-}
 
 export default api;

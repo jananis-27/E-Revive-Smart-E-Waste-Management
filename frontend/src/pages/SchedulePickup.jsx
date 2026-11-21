@@ -14,12 +14,17 @@ export default function SchedulePickup() {
 
   const submit = async (form) => {
     const payload = {
-      name: form.name, mobile: form.mobile, address: form.address, city: form.city, state: form.state,
-      pincode: form.pincode, date: form.date, time: form.time, instructions: form.instructions,
-      ...(state?.analysisId ? { analysis_id: state.analysisId } : {}),
+      ...form,
+      analysisId: state?.analysisId,
+      deviceType: state?.deviceType || "other",
     };
     const res = await schedulePickup(payload);
-    setBooking({ ...res, date: res.date || form.date, time: res.time || form.time, address: res.address || [form.address, form.city, form.state, form.pincode].join(", ") });
+    setBooking({
+      ...res,
+      date: res.date || form.date,
+      time: res.time || form.time,
+      address: res.address || [form.address, form.city, form.state, form.pincode].join(", "),
+    });
   };
 
   if (booking) {

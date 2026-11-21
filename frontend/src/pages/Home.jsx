@@ -16,7 +16,7 @@ export default function Home() {
       <HeroSection />
       <section className="section section-alt">
         <h2 className="section-title">Why Choose E:Revive?</h2>
-        <p className="section-sub">Smart, sustainable, and rewarding e-waste management powered by Machine Learning.</p>
+        <p className="section-sub">Smart, sustainable, and rewarding e-waste management with automated device assessments.</p>
         <div className="feature-grid">
           {features.map((f) => <FeatureCard key={f.title} {...f} />)}
         </div>

@@ -24,7 +24,6 @@ export function AuthProvider({ children }) {
   const logout = useCallback(() => {
     localStorage.removeItem("erevive_token");
     localStorage.removeItem("erevive_user");
-    sessionStorage.removeItem("erevive_demo");
     setUser(null);
   }, []);
 
