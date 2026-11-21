@@ -1,0 +1,20 @@
+# Dependencies and build output
+node_modules/
+frontend/dist/
+backend/target/
+
+# Local H2 database and secrets
+backend/data/
+data/
+.env
+.env.local
+
+# Local backup made before deployment changes
+_backup_original/
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

@@ -1,0 +1,18 @@
+# Render Blueprint for the E:Revive backend (Spring Boot, Docker).
+# Render dashboard > New > Blueprint > pick this repository.
+# You will be asked for DATABASE_URL (paste the Neon connection string).
+services:
+  - type: web
+    name: erevive-api
+    runtime: docker
+    plan: free
+    region: singapore
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://jananis-27.github.io,http://localhost:5173

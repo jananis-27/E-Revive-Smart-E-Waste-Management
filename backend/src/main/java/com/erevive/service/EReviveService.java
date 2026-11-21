@@ -3,7 +3,6 @@ package com.erevive.service;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -370,7 +369,7 @@ public class EReviveService {
         jdbc.update(connection -> {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
+                    new String[]{"id"}
             );
             statement.setString(1, name);
             statement.setString(2, email);

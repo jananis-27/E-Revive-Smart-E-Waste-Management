@@ -1,4 +1,4 @@
-import api, { API_ENDPOINTS } from "./api";
+import api, { API_ENDPOINTS, resolveBackendUrl } from "./api";
 import { cap } from "../utils/format";
 
 const TIME_SLOT_LABELS = {
@@ -11,7 +11,7 @@ const TIME_SLOT_LABELS = {
 export const normAnalysis = (a = {}) => ({
   ...a,
   id: a.id ?? a.surveyId ?? a._id,
-  image: a.image_url || a.imageUrl || a.image || "",
+  image: resolveBackendUrl(a.image_url || a.imageUrl || a.image || ""),
   component: a.component || a.detected_component || a.predicted_class || "Unknown",
   reusability: cap(a.reusability || a.reusability_level || a.recommendation || "Unknown"),
   priceMin: a.price_min ?? a.priceMin ?? a.estimatedValueMin ?? a.estimated_price?.min,

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="E:Revive – A Smart E-Waste Management System Using Machine Learning" />
+    <meta name="description" content="E:Revive – A Smart E-Waste Management System" />
     <title>E:Revive – Give Your E-Waste a Second Life</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,16 +14,3 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-<script>
-async function connectBackend() {
-    try {
-        const response = await fetch("http://127.0.0.1:5000/api/status");
-        const data = await response.json();
-        console.log("Backend connected:", data);
-    } catch (error) {
-        console.log("Backend connection failed");
-    }
-}
-
-connectBackend();
-</script>
